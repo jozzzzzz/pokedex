@@ -1,15 +1,21 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { View, StyleSheet, Text, Image } from 'react-native';
-
-
+import FlipCard from 'react-native-flip-card';
 
 const SquareComponent = ({data}, {index}) => {
-
-    return (
+  
+  return (
+    <FlipCard
+            key={index}
+            style={styles.card}
+            friction={6}
+            perspective={1000}
+            flipHorizontal={true}
+            flipVertical={false}
+            flip={false}>
       <View style={styles.square} key={index} >
-        <Text style={styles.text} >{data.name}</Text>
+        <Text style={styles.name} >{data.name}</Text>
         <Image source={{uri: data.image}} style={{width: 100, height: 100}} />
-        <Text style={styles.text} >{data.stats.HP} HP</Text>
         <View style={styles.align}>
             {data.apiTypes.map((type) => (
             <View style={styles.align} >
@@ -20,6 +26,23 @@ const SquareComponent = ({data}, {index}) => {
             }
         </View>
       </View>
+      <View style={styles.square} key={index}>
+        <Text style={{marginTop: 3}}>Number {data.id}</Text>
+        <Text style={styles.name} >{data.name}</Text>
+        <Text style={styles.text} >HP: {data.stats.HP}</Text>
+        <Text style={styles.text} >Attack: {data.stats.attack}</Text>
+        <Text style={styles.text} >Defense: {data.stats.defense}</Text>
+        <View style={styles.align}>
+            {data.apiTypes.map((type) => (
+            <View style={styles.align} >
+                <Text style={styles.text} >{type.name}</Text>
+                <Image source={{uri: type.image}} style={{width: 10, height: 10}}/>
+                <Text>  </Text>
+            </View>))
+            }
+        </View>
+      </View>
+    </FlipCard>
     );
   };
   
@@ -27,6 +50,7 @@ const SquareComponent = ({data}, {index}) => {
 const styles = StyleSheet.create({
     square: {
       width: 300,
+      height: 200,
       backgroundColor: 'grey',
       borderRadius: 10,
       margin: 6, 
@@ -34,8 +58,13 @@ const styles = StyleSheet.create({
       padding: 5
     },
     text: {
-        fontSize: 20,
-        color: 'white'
+      marginTop: 2,
+      fontSize: 20,
+      color: 'white'
+    },
+    name: {
+      fontSize: 30,
+      color: 'white'
     },
     align: {
         flexDirection: 'row'
