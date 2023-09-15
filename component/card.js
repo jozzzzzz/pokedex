@@ -14,17 +14,12 @@ const SquareComponent = ({data}, {index}) => {
             flipVertical={false}
             flip={false}>
       <View style={styles.square} key={index} >
-        <Text style={styles.name} >{data.name}</Text>
-        <Image source={{uri: data.image}} style={{width: 100, height: 100}} />
         <View style={styles.align}>
-            {data.apiTypes.map((type) => (
-            <View style={styles.align} >
-                <Text style={styles.text} >{type.name}</Text>
-                <Image source={{uri: type.image}} style={{width: 10, height: 10}}/>
-                <Text>  </Text>
-            </View>))
-            }
+          <Text style={styles.name} >{data.name}</Text>
         </View>
+        <Image source={{uri: data.image}} style={{width: 100, height: 100}} />
+          {data.apiEvolutions.map((evolution) => <Text style={{color: 'white', marginTop: 6}} >{evolution.name} #{evolution.pokedexId}</Text>)}
+          <Text style={{color: 'white', marginTop: 6}} >{data.apiPreEvolution.name} #{data.apiPreEvolution.pokedexId}</Text>
       </View>
       <View style={styles.square} key={index}>
         <Text style={{marginTop: 3}}>Number {data.id}</Text>
